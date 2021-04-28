@@ -1,0 +1,21 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  default:
+    desc: run the CLI
+    deps:
+      - task: install-for-development
+    cmds:
+      - poetry run marleu-ec2 --help
+
+  install-for-development:
+    desc: installs the module in current environment or creates a virtual environment to install in
+    cmds:
+      - poetry install
+
+  create-requirements-file:
+    desc: create requirements.txt file for vulnerability scanners
+    cmds:
+      - poetry export -f requirements.txt --output requirements.txt --without-hashes

@@ -1,4 +1,5 @@
 import argparse
+
 import boto3
 import jmespath
 
@@ -13,20 +14,25 @@ KAFKA_BOOTSTRAP_PORT = 9092
 
 
 def __get_ec2_ips_and_names(region):
-    client = boto3.client('ec2', region_name=region)
+    client = boto3.client("ec2", region_name=region)
     response = client.describe_instances(
         Filters=[
             {
-                'Name': 'tag-key',
-                'Values': [
-                    'Name',
-                ]
+                "Name": "tag-key",
+                "Values": [
+                    "Name",
+                ],
             },
         ],
-        DryRun=False
+        DryRun=False,
     )
     expression = jmespath.compile(
-        'Reservations[*].Instances[0].{' + NAME + ':Tags[?Key==`Name`].Value | [0],' + IP + ':PrivateIpAddress}')
+        "Reservations[*].Instances[0].{"
+        + NAME
+        + ":Tags[?Key==`Name`].Value | [0],"
+        + IP
+        + ":PrivateIpAddress}"
+    )
     result = expression.search(response)
 
     return result
@@ -56,30 +62,35 @@ def get_kafka_bootstrap(ips):
     list = []
     for ip in ips:
         list.append("{}:{}".format(ip, KAFKA_BOOTSTRAP_PORT))
-    return ','.join(list)
+    return ",".join(list)
 
 
 def get_parser():
     """get the parsers dict"""
-    parsers = {'super': argparse.ArgumentParser(description="Ec2 utility collection")}
+    parsers = {"super": argparse.ArgumentParser(description="Ec2 utility collection")}
 
-    parsers['super'].add_argument("-r", "--region", default=DEFAULT_REGION,
-                                  help="pass a region or it will be used the default one:" + DEFAULT_REGION)
+    parsers["super"].add_argument(
+        "-r",
+        "--region",
+        default=DEFAULT_REGION,
+        help="pass a region or it will be used the default one:" + DEFAULT_REGION,
+    )
 
-    parsers['super'].add_argument("-e", "--env", default=None, required=True,
-                                  help="environment")
+    parsers["super"].add_argument(
+        "-e", "--env", default=None, required=True, help="environment"
+    )
 
-    subparsers = parsers['super'].add_subparsers(help='help')
+    subparsers = parsers["super"].add_subparsers(help="help")
 
-    action = 'get-kafka-broker'
+    action = "get-kafka-broker"
     parsers[action] = subparsers.add_parser(action, help="get ip of a Kafka broker")
     parsers[action].set_defaults(action=action)
 
-    action = 'get-kafka-worker'
+    action = "get-kafka-worker"
     parsers[action] = subparsers.add_parser(action, help="get ip of a Kafka worker")
     parsers[action].set_defaults(action=action)
 
-    action = 'get-kafka-bootstrap'
+    action = "get-kafka-bootstrap"
     parsers[action] = subparsers.add_parser(action, help="get all Kafka brokers")
     parsers[action].set_defaults(action=action)
 
@@ -88,7 +99,7 @@ def get_parser():
 
 def main():
     parsers = get_parser()
-    args = parsers['super'].parse_args()
+    args = parsers["super"].parse_args()
 
     region = args.region
     env = args.env
@@ -105,8 +116,8 @@ def main():
             print(get_kafka_bootstrap(ips))
             return
     else:
-        parsers['super'].print_help()
+        parsers["super"].print_help()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
