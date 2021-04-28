@@ -12,7 +12,7 @@ setup(name='marleu-emr',
           'requests',
           'paramiko',
           'credstash',
-          'cryptography==2.3'
+          'cryptography==3.2'
       ],
       scripts=['bin/marleu-emr'],
       zip_safe=False)
