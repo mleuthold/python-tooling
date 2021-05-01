@@ -1,7 +1,7 @@
 import click
 
 from marleu_pytest.greetings.bad import bad_greeting
-from marleu_pytest.greetings.good import good_greeting
+from .greetings.good import good_greeting
 
 
 @click.command()
