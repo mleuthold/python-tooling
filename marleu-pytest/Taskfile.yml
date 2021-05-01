@@ -2,15 +2,7 @@
 
 version: '3'
 
-vars:
-  GREETING: Hello, World!
-
 tasks:
-  default:
-    cmds:
-      - echo "{{.GREETING}}"
-    silent: true
-
   test-source-code:
     desc: run test directly on source files
     cmds:
@@ -21,3 +13,8 @@ tasks:
     cmds:
       - poetry install
       - pytest
+
+  create-requirements-file:
+    desc: create requirements.txt file for vulnerability scanners
+    cmds:
+      - poetry export -f requirements.txt --output requirements.txt --without-hashes
