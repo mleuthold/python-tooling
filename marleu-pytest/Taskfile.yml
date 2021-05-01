@@ -1,0 +1,23 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  default:
+    cmds:
+      - echo "{{.GREETING}}"
+    silent: true
+
+  test-source-code:
+    desc: run test directly on source files
+    cmds:
+      - PYTHONPATH=src pytest
+
+  test-installed-source-code:
+    desc: install source code dynamically to test it
+    cmds:
+      - poetry install
+      - pytest
