@@ -9,6 +9,7 @@ repository = "https://github.com/mleuthold/python-tooling"
 [tool.poetry.dependencies]
 python = "^3.7"
 boto3 = "^1.17.60"
+urllib3 = "^1.26.5"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.812"
