@@ -18,6 +18,13 @@ https://python-poetry.org/
 The author uses `pyenv` to manage Python environments and highly recommends it. \
 https://realpython.com/intro-to-pyenv/
 
+How to setup local Python environment with `pyenv`:
+```shell
+pyenv install 3.9.6
+pyenv virtualenv 3.9.6 py39
+pyenv local py39
+```
+
 # Projects
 
 ## marleu-ec2
