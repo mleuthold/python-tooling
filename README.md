@@ -25,6 +25,33 @@ pyenv virtualenv 3.9.6 py39
 pyenv local py39
 ```
 
+# Development
+
+In order to provide consistent code format quality it is recommended to use git hooks. \
+https://pre-commit.com/
+
+There are even more advanced linters for Python, but not used in this project for now. \
+https://wilsonmar.github.io/git-hooks/
+
+Install `pre-commit` tool:
+```shell
+pip install pre-commit
+
+# or
+
+brew install pre-commit
+```
+
+Install git hooks:
+```shell
+pre-commit install
+```
+
+Manually run git hooks:
+```shell
+pre-commit run --all-files
+```
+
 # Projects
 
 ## marleu-ec2

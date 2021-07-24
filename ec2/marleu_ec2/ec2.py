@@ -16,15 +16,7 @@ KAFKA_BOOTSTRAP_PORT = 9092
 def __get_ec2_ips_and_names(region):
     client = boto3.client("ec2", region_name=region)
     response = client.describe_instances(
-        Filters=[
-            {
-                "Name": "tag-key",
-                "Values": [
-                    "Name",
-                ],
-            },
-        ],
-        DryRun=False,
+        Filters=[{"Name": "tag-key", "Values": ["Name"]}], DryRun=False
     )
     expression = jmespath.compile(
         "Reservations[*].Instances[0].{"
