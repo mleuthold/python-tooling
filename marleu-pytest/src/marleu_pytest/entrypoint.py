@@ -1,6 +1,6 @@
 import click
-
 from marleu_pytest.greetings.bad import bad_greeting
+
 from .greetings.good import good_greeting
 
 
