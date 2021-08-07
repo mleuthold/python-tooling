@@ -6,15 +6,15 @@ tasks:
   test-source-code:
     desc: run test directly on source files
     cmds:
-      - PYTHONPATH=src pytest
+    - PYTHONPATH=src pytest
 
   test-installed-source-code:
     desc: install source code dynamically to test it
     cmds:
-      - poetry install
-      - pytest
+    - poetry install
+    - pytest
 
   create-requirements-file:
     desc: create requirements.txt file for vulnerability scanners
     cmds:
-      - poetry export -f requirements.txt --output requirements.txt --without-hashes
+    - poetry export -f requirements.txt --output requirements.txt --without-hashes
