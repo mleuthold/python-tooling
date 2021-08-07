@@ -4,7 +4,22 @@ version: '3'
 
 tasks:
   default:
+    desc: default
     cmds:
     - cd ec2; poetry publish --build
     - cd emr; poetry publish --build
     silent: true
+
+  multiline-task:
+    desc: multiline-task
+    cmds:
+    - |
+      echo A
+      echo B
+
+  singleline-task:
+    desc: singleline-task
+    cmds:
+    - >
+      echo A
+      echo B
